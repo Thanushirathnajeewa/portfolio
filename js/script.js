@@ -1,6 +1,4 @@
-// =========================================================
-// Shared behaviour across all pages
-// =========================================================
+
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -102,6 +100,61 @@ document.addEventListener('DOMContentLoaded', () => {
       status.textContent = `Thanks, ${name}! Your message has been captured locally. Connect a form backend (see script.js comments) to receive it by email.`;
       status.className = 'form-status ok';
       form.reset();
+    });
+  }
+
+  /* ---- Certificate viewer ---- */
+  const certificateButtons = document.querySelectorAll('.certificate-button');
+  if (certificateButtons.length) {
+    const viewer = document.createElement('div');
+    viewer.className = 'certificate-viewer';
+    viewer.setAttribute('role', 'dialog');
+    viewer.setAttribute('aria-modal', 'true');
+    viewer.setAttribute('aria-label', 'Certificate details');
+    viewer.innerHTML = `
+      <div class="certificate-viewer-panel">
+        <button class="certificate-viewer-close" type="button" aria-label="Close certificate">&times;</button>
+        <img class="certificate-viewer-image" alt="">
+        <div class="certificate-viewer-details">
+          <h2></h2>
+          <div class="certificate-viewer-text"></div>
+        </div>
+      </div>`;
+    document.body.appendChild(viewer);
+
+    const viewerImage = viewer.querySelector('.certificate-viewer-image');
+    const viewerTitle = viewer.querySelector('h2');
+    const viewerText = viewer.querySelector('.certificate-viewer-text');
+    const closeViewer = () => {
+      viewer.classList.remove('open');
+      document.body.classList.remove('certificate-viewer-open');
+    };
+
+    certificateButtons.forEach(button => {
+      const card = button.closest('.card');
+      const certificate = card.querySelector('.certificate');
+      button.addEventListener('click', () => {
+        viewerImage.src = certificate.src;
+        viewerImage.alt = certificate.alt;
+        viewerTitle.textContent = card.querySelector('h3').textContent.trim();
+        viewerText.innerHTML = '';
+        card.querySelectorAll('p').forEach(paragraph => {
+          const detail = document.createElement('p');
+          detail.textContent = paragraph.textContent.trim();
+          viewerText.appendChild(detail);
+        });
+        viewer.classList.add('open');
+        document.body.classList.add('certificate-viewer-open');
+        viewer.querySelector('.certificate-viewer-close').focus();
+      });
+    });
+
+    viewer.querySelector('.certificate-viewer-close').addEventListener('click', closeViewer);
+    viewer.addEventListener('click', event => {
+      if (event.target === viewer) closeViewer();
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && viewer.classList.contains('open')) closeViewer();
     });
   }
 

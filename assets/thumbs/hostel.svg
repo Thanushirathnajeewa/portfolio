@@ -1,0 +1,25 @@
+<svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="120" fill="#121B2E"/>
+  <rect x="0.5" y="0.5" width="199" height="119" fill="none" stroke="#24314B"/>
+  <rect x="0" y="96" width="200" height="24" fill="#182238"/>
+  <!-- building -->
+  <rect x="52" y="24" width="96" height="72" fill="#182238" stroke="#24314B"/>
+  <!-- roof -->
+  <path d="M46 24 L100 6 L154 24 Z" fill="#24314B"/>
+  <!-- door -->
+  <rect x="90" y="72" width="20" height="24" fill="#0B1220"/>
+  <!-- windows grid, some lit teal = occupied rooms -->
+  <rect x="62" y="36" width="14" height="14" fill="#5EEAD4"/>
+  <rect x="84" y="36" width="14" height="14" fill="#0B1220" stroke="#2E7D74"/>
+  <rect x="106" y="36" width="14" height="14" fill="#5EEAD4"/>
+  <rect x="128" y="36" width="14" height="14" fill="#0B1220" stroke="#2E7D74"/>
+  <rect x="62" y="56" width="14" height="14" fill="#0B1220" stroke="#2E7D74"/>
+  <rect x="84" y="56" width="14" height="14" fill="#5EEAD4"/>
+  <rect x="128" y="56" width="14" height="14" fill="#5EEAD4"/>
+  <!-- data list panel -->
+  <rect x="14" y="20" width="30" height="60" fill="#0B1220" stroke="#24314B"/>
+  <rect x="19" y="28" width="20" height="4" fill="#5EEAD4" opacity="0.8"/>
+  <rect x="19" y="38" width="20" height="4" fill="#8B96A8" opacity="0.6"/>
+  <rect x="19" y="48" width="20" height="4" fill="#8B96A8" opacity="0.6"/>
+  <rect x="19" y="58" width="14" height="4" fill="#8B96A8" opacity="0.6"/>
+</svg>

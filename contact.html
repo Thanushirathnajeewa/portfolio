@@ -54,8 +54,6 @@
             <a href="certifications.html">Certifications</a>
           </li>
 
-          
-
           <li>
             <a href="contact.html">Contact</a>
           </li>
@@ -86,9 +84,8 @@
         <h1>Get in Touch</h1>
 
         <p style="max-width:60ch;">
-          Have an opportunity, a question, or just want to say
-          hello? Send a message below, or reach me directly
-          through the links.
+          Have an opportunity, a question, or just want to say hello?
+          Send a message below, or reach me directly through the links.
         </p>
 
       </div>
@@ -106,14 +103,11 @@
         <div>
 
           <h2 style="margin-bottom:20px;">
-            Send a message
+            Send a Message
           </h2>
 
-
-          <!-- PHP Contact Form -->
           <form
-            action="backend/contact.php"
-            method="POST"
+            id="contactForm"
             class="form-grid">
 
 
@@ -151,6 +145,23 @@
             </div>
 
 
+            <!-- Subject -->
+            <div>
+
+              <label for="subject">
+                Subject
+              </label>
+
+              <input
+                type="text"
+                id="subject"
+                name="subject"
+                placeholder="Subject"
+                required>
+
+            </div>
+
+
             <!-- Message -->
             <div>
 
@@ -172,9 +183,21 @@
 
               <button
                 type="submit"
-                class="btn">
-                Send message
+                class="btn"
+                id="submitButton">
+                Send Message
               </button>
+
+            </div>
+
+
+            <!-- Status Message -->
+            <div>
+
+              <p
+                id="formStatus"
+                style="margin-top:10px;">
+              </p>
 
             </div>
 
@@ -183,27 +206,29 @@
         </div>
 
 
-       
+        <!-- Direct Contact -->
         <div>
 
           <h2 style="margin-bottom:20px;">
-            Direct contact
+            Direct Contact
           </h2>
 
 
           <div class="contact-links">
 
+            <!-- Email -->
             <a href="mailto:thanushirathnajeewa@gmail.com">
               ✉ &nbsp; thanushirathnajeewa@gmail.com
             </a>
 
 
-           
+            <!-- Phone -->
             <a href="tel:+94710403932">
               ☎ &nbsp; +94 71 040 3932
             </a>
 
 
+            <!-- LinkedIn -->
             <a
               href="https://www.linkedin.com/in/thanushirathnajeewa"
               target="_blank"
@@ -227,11 +252,9 @@
           </div>
 
 
+          <!-- Location -->
           <p style="font-size:13px; margin-top:16px;">
-
-            61/B, Mahiyangana Road,
-            Hunnasgiriya, Kandy
-
+            Kandy, Sri Lanka
           </p>
 
         </div>
@@ -251,15 +274,87 @@
 
       © <span id="year"></span>
       Thanushi Rathnajeewa.
-      Built with HTML, CSS &amp; JavaScript.
+      Built with HTML &amp; CSS &amp; JavaScript.
 
     </div>
 
   </footer>
 
 
+  <script src="js/script.js" defer></script>
 
-  <script src="js/script.js"></script>
+
+  <!-- Contact Form JavaScript -->
+  <script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+      const contactForm = document.getElementById("contactForm");
+      const formStatus = document.getElementById("formStatus");
+      const submitButton = document.getElementById("submitButton");
+
+      contactForm.addEventListener("submit", async function (event) {
+
+        event.preventDefault();
+
+        submitButton.disabled = true;
+        submitButton.textContent = "Sending...";
+
+        formStatus.textContent = "";
+
+        const formData = {
+          name: document.getElementById("name").value,
+          email: document.getElementById("email").value,
+          subject: document.getElementById("subject").value,
+          message: document.getElementById("message").value
+        };
+
+        try {
+
+          const response = await fetch(
+            "http://localhost:3000/api/contact",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify(formData)
+            }
+          );
+
+          const data = await response.json();
+
+          if (response.ok) {
+
+            formStatus.textContent =
+              "✓ Your message has been sent successfully!";
+
+            contactForm.reset();
+
+          } else {
+
+            formStatus.textContent =
+              "✕ " + data.message;
+
+          }
+
+        } catch (error) {
+
+          console.error(error);
+
+          formStatus.textContent =
+            "✕ Unable to connect to the server. Please try again.";
+
+        }
+
+        submitButton.disabled = false;
+        submitButton.textContent = "Send Message";
+
+      });
+
+    });
+
+  </script>
 
 </body>
 

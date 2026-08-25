@@ -1,9 +1,7 @@
 const container = document.getElementById("contact-container");
 
 
-/* =========================
-   CREATE CONTACT FORM
-========================= */
+
 
 container.innerHTML = `
 

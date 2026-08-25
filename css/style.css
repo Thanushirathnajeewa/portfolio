@@ -657,8 +657,8 @@ textarea {
 /* Project card thumbnails */
 .card .thumb {
   width: 100%;
-  aspect-ratio: 5/3;
-  object-fit: cover;
+  height: 180px;
+  object-fit: contain;
   border-radius: 6px;
   border: 1px solid var(--border);
   margin-bottom: 14px;
